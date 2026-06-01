@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🇺🇸 探索美国 — 学习之旅</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1a1a2e;
+            --cream: #fef9f0;
+            --terracotta: #c75b39;
+            --mustard: #e2a93b;
+            --teal: #287271;
+            --sage: #8aa79e;
+            --rust: #8b3a2a;
+            --charcoal: #2d2d2d;
+            --paper: #fdf3e0;
+            --sky: #c9dbe0;
+            --card-shadow: 0 4px 24px rgba(0,0,0,0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.7;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ── Grain texture overlay ── */
+        body::after {
+            content: '';
+            position: fixed; inset: 0; z-index: 9999;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+        }
+
+        .zh { color: #666; font-weight: 400; font-size: 0.88em; }
+
+        /* ── Hero ── */
+        .hero {
+            background: var(--navy);
+            color: white;
+            min-height: 85vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 80px 24px 60px;
+            position: relative; overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(226,169,59,0.15) 0%, transparent 70%);
+            top: -200px; right: -150px;
+            animation: heroGlow 8s ease-in-out infinite;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(199,91,57,0.12) 0%, transparent 70%);
+            bottom: -100px; left: -100px;
+            animation: heroGlow 8s ease-in-out 4s infinite;
+        }
+        @keyframes heroGlow {
+            0%,100% { transform: scale(1); opacity: .6; }
+            50% { transform: scale(1.3); opacity: 1; }
+        }
+
+        .hero-badge {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600; font-size: 0.8rem; letter-spacing: 4px;
+            text-transform: uppercase;
+            border: 1.5px solid rgba(255,255,255,0.3);
+            padding: 10px 28px; border-radius: 2px;
+            margin-bottom: 36px;
+            animation: fadeInUp 1s ease-out;
+            backdrop-filter: blur(4px);
+            background: rgba(255,255,255,0.04);
+        }
+        .hero h1 {
+            font-family: 'Abril Fatface', 'DM Serif Display', serif;
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 400; line-height: 1.1;
+            animation: fadeInUp 1s ease-out .15s both;
+            letter-spacing: -0.5px;
+        }
+        .hero h1 .en-line {
+            display: block; font-size: 0.35em;
+            font-family: 'DM Sans', sans-serif; font-weight: 300;
+            letter-spacing: 6px; opacity: .65; margin-top: 8px;
+            text-transform: uppercase;
+        }
+        .hero .hero-tags {
+            display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+            margin-top: 32px;
+            animation: fadeInUp 1s ease-out .3s both;
+        }
+        .hero .hero-tags span {
+            padding: 8px 20px; border-radius: 2px;
+            font-size: 0.82rem; font-weight: 500; letter-spacing: 1px;
+            text-transform: uppercase;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(4px);
+        }
+        .hero-scroll {
+            position: absolute; bottom: 60px;
+            animation: fadeInUp 1s ease-out .6s both, bounce 2s ease-in-out infinite;
+        }
+        .hero-scroll span {
+            display: block; width: 28px; height: 48px;
+            border: 2px solid rgba(255,255,255,0.3); border-radius: 14px;
+            position: relative;
+        }
+        .hero-scroll span::after {
+            content: '';
+            position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+            width: 4px; height: 10px; background: rgba(255,255,255,0.5);
+            border-radius: 2px;
+            animation: scrollDot 2s ease-in-out infinite;
+        }
+        @keyframes scrollDot {
+            0%,100% { top: 8px; opacity: .5; }
+            50% { top: 24px; opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounce {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        /* ── Navigation ── */
+        .nav-bar {
+            position: sticky; top: 20px; z-index: 100;
+            display: flex; gap: 6px; justify-content: center;
+            flex-wrap: wrap; padding: 0 20px; margin-bottom: 24px;
+        }
+        .nav-bar button {
+            background: white; border: none;
+            border-radius: 2px; padding: 13px 20px;
+            font-size: 0.82rem; cursor: pointer;
+            transition: all .3s cubic-bezier(.4,0,.2,1);
+            font-family: 'DM Sans', sans-serif; font-weight: 500;
+            color: var(--charcoal); letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            position: relative; overflow: hidden;
+        }
+        .nav-bar button::after {
+            content: '';
+            position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+            background: var(--terracotta);
+            transform: scaleX(0); transition: transform .3s;
+        }
+        .nav-bar button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+        .nav-bar button:hover::after { transform: scaleX(1); }
+        .nav-bar button.active {
+            background: var(--navy); color: white;
+            box-shadow: 0 6px 24px rgba(26,26,46,0.2);
+        }
+        .nav-bar button.active::after { background: var(--mustard); transform: scaleX(1); }
+        .nav-bar button .nav-zh { display: block; font-size: 0.9em; }
+        .nav-bar button .nav-en { display: block; font-size: 0.68em; opacity: .5; font-weight: 400; }
+
+        /* ── Sections ── */
+        .section {
+            max-width: 1040px; margin: 60px auto;
+            padding: 0 28px;
+            scroll-margin-top: 110px;
+        }
+        .section-header {
+            margin-bottom: 32px; position: relative;
+        }
+        .section-header .section-num {
+            font-family: 'Abril Fatface', serif;
+            font-size: 4rem; color: rgba(199,91,57,0.12);
+            position: absolute; top: -30px; left: -10px;
+            line-height: 1; pointer-events: none;
+        }
+        .section-header h2 {
+            font-family: 'Abril Fatface', 'DM Serif Display', serif;
+            font-size: 2.4rem; font-weight: 400; color: var(--navy);
+            position: relative; z-index: 1;
+        }
+        .section-header h2 .en-sub {
+            display: block; font-family: 'DM Sans', sans-serif; font-size: 0.35em;
+            font-weight: 400; color: var(--sage); letter-spacing: 3px;
+            text-transform: uppercase; margin-top: 2px;
+        }
+        .section-intro {
+            color: #777; margin-bottom: 28px; font-size: 1.05rem;
+            max-width: 640px; border-left: 3px solid var(--mustard);
+            padding-left: 20px;
+        }
+
+        /* ── Cards ── */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: white; border-radius: 4px; padding: 32px 28px 24px;
+            box-shadow: var(--card-shadow);
+            transition: transform .35s cubic-bezier(.4,0,.2,1), box-shadow .35s;
+            position: relative; overflow: hidden;
+            border-top: 4px solid transparent;
+        }
+        .card:nth-child(3n+1) { border-top-color: var(--terracotta); }
+        .card:nth-child(3n+2) { border-top-color: var(--teal); }
+        .card:nth-child(3n+3) { border-top-color: var(--mustard); }
+        .card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(254,249,240,0.4));
+            pointer-events: none;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+        }
+        .card .emoji { font-size: 2.4rem; margin-bottom: 14px; display: block; }
+        .card h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.15rem; color: var(--navy); margin-bottom: 6px;
+            font-weight: 400;
+        }
+        .card h3 .zh { display: block; font-family: 'DM Sans', sans-serif; font-size: 0.78em; color: #999; margin-top: 2px; }
+        .card p { color: #666; font-size: 0.9rem; line-height: 1.65; }
+        .card p .zh { display: block; margin-top: 5px; }
+
+        /* ── Timeline ── */
+        .timeline {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+            gap: 16px;
+        }
+        .timeline-item {
+            background: white; border-radius: 4px; padding: 22px 24px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            border-left: 4px solid var(--terracotta);
+            transition: transform .3s, box-shadow .3s;
+        }
+        .timeline-item:nth-child(odd) { border-left-color: var(--teal); }
+        .timeline-item:nth-child(3n) { border-left-color: var(--mustard); }
+        .timeline-item:hover {
+            transform: translateX(6px);
+            box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+        }
+        .timeline-item .year {
+            font-family: 'Abril Fatface', serif;
+            font-size: 1.1rem; color: var(--terracotta);
+            display: block; margin-bottom: 4px;
+        }
+        .timeline-item:nth-child(odd) .year { color: var(--teal); }
+        .timeline-item:nth-child(3n) .year { color: var(--mustard); }
+        .timeline-item p { font-size: 0.9rem; color: #555; }
+        .timeline-item p .zh { display: block; margin-top: 3px; }
+
+        /* ── Fact Box ── */
+        .fact-box {
+            background: white;
+            border: 2px dashed var(--mustard);
+            border-radius: 4px; padding: 28px 30px;
+            text-align: center; margin: 24px 0;
+            transition: all .3s;
+        }
+        .fact-box:hover {
+            border-style: solid;
+            box-shadow: 0 8px 30px rgba(226,169,59,0.12);
+            transform: scale(1.01);
+        }
+        .fact-box button {
+            background: var(--navy); color: white; border: none;
+            border-radius: 2px; padding: 12px 30px;
+            font-size: 0.9rem; cursor: pointer; font-family: 'DM Sans', sans-serif;
+            margin-top: 14px; transition: all .25s;
+            letter-spacing: 0.5px;
+        }
+        .fact-box button:hover {
+            background: var(--terracotta);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(199,91,57,0.3);
+        }
+
+        /* ── Region Explorer ── */
+        .region-explorer {
+            display: flex; gap: 28px; flex-wrap: wrap; align-items: flex-start; margin-top: 20px;
+        }
+        .region-map-svg {
+            flex: 1; min-width: 340px; max-width: 500px;
+            background: white; border-radius: 4px;
+            box-shadow: var(--card-shadow); padding: 16px;
+        }
+        .region-map-svg svg { width: 100%; height: auto; display: block; }
+        .region-side { flex: 1; min-width: 260px; }
+        .region-buttons {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(130px,1fr));
+            gap: 8px;
+        }
+        .region-btn {
+            background: white; border: 2px solid #e8e3d8;
+            border-radius: 4px; padding: 14px 12px;
+            text-align: center; cursor: pointer;
+            transition: all .3s; font-family: 'DM Sans', sans-serif; font-weight: 500;
+            font-size: 0.88rem; color: var(--charcoal);
+        }
+        .region-btn:hover, .region-btn.selected {
+            background: var(--navy); color: white; border-color: var(--navy);
+            box-shadow: 0 6px 20px rgba(26,26,46,0.2);
+            transform: translateY(-3px);
+        }
+        .region-detail {
+            margin-top: 16px; padding: 20px 22px;
+            background: white; border-radius: 4px;
+            box-shadow: var(--card-shadow); min-height: 80px;
+            border-left: 4px solid var(--terracotta);
+        }
+
+        /* Map region styling */
+        .map-region {
+            stroke: white; stroke-width: 1.5;
+            transition: all .3s; cursor: pointer;
+        }
+        .map-region:hover {
+            opacity: .85 !important;
+            stroke-width: 3;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+        }
+        .map-region.selected-region {
+            opacity: .9 !important; stroke: var(--navy); stroke-width: 4;
+            animation: pulseStroke 1s ease-in-out infinite;
+        }
+        @keyframes pulseStroke {
+            0%,100% { stroke-opacity: 1; }
+            50% { stroke-opacity: .4; }
+        }
+
+        /* ── Quiz ── */
+        .quiz-card {
+            background: white; border-radius: 4px; padding: 36px 32px;
+            box-shadow: var(--card-shadow); margin-top: 20px;
+        }
+        .quiz-card .question {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.25rem; font-weight: 400;
+            margin-bottom: 20px; color: var(--navy);
+        }
+        .quiz-card .option {
+            display: block; width: 100%;
+            background: var(--cream); border: 2px solid transparent;
+            border-radius: 4px; padding: 16px 20px;
+            margin-bottom: 10px; font-size: 0.95rem;
+            cursor: pointer; text-align: left;
+            transition: all .25s; font-family: 'DM Sans', sans-serif;
+            color: var(--charcoal);
+        }
+        .quiz-card .option:hover {
+            background: white; border-color: var(--navy);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        }
+        .quiz-card .option.correct {
+            background: #e8f5e9; border-color: #2e7d32; color: #1b5e20;
+        }
+        .quiz-card .option.wrong {
+            background: #fce4ec; border-color: #c62828; color: #b71c1c;
+        }
+        .quiz-card .feedback { margin-top: 14px; font-weight: 600; min-height: 28px; }
+        .btn-primary {
+            background: var(--navy); color: white; border: none;
+            border-radius: 2px; padding: 12px 28px; font-size: 0.9rem;
+            cursor: pointer; font-family: 'DM Sans', sans-serif;
+            letter-spacing: 0.5px; transition: all .25s;
+        }
+        .btn-primary:hover { background: var(--terracotta); box-shadow: 0 6px 20px rgba(199,91,57,0.3); }
+
+        /* ── Landmark Banner Strip ── */
+        .banner-strip {
+            display: flex; gap: 14px; overflow-x: auto; padding-bottom: 10px;
+            scroll-snap-type: x mandatory; margin-bottom: 24px;
+        }
+        .banner-card {
+            min-width: 220px; height: 130px; border-radius: 4px;
+            display: flex; align-items: flex-end; padding: 16px;
+            scroll-snap-align: start; position: relative; overflow: hidden;
+            transition: all .3s; cursor: default;
+        }
+        .banner-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+        .banner-card .banner-emoji {
+            font-size: 3.5rem; position: absolute; top: 10px; right: 16px; opacity: .2;
+        }
+        .banner-card span {
+            color: white; font-weight: 600; font-size: 1.1rem;
+            position: relative; z-index: 1;
+        }
+        .banner-card span small { display: block; font-weight: 300; opacity: .8; font-size: .75rem; }
+        .bc-1 { background: linear-gradient(135deg, #3b5998, #2d4373); }
+        .bc-2 { background: linear-gradient(135deg, #d48438, #b8651a); }
+        .bc-3 { background: linear-gradient(135deg, #c0392b, #922b21); }
+        .bc-4 { background: linear-gradient(135deg, #1e8449, #145a32); }
+        .bc-5 { background: linear-gradient(135deg, #6c3483, #4a235a); }
+        .bc-6 { background: linear-gradient(135deg, #1f618d, #154360); }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center; padding: 56px 24px 40px;
+            background: var(--navy); color: #aaa;
+            clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 100%);
+            margin-top: 60px;
+        }
+        footer p { font-size: 0.9rem; }
+        footer a { color: var(--mustard); text-decoration: none; }
+
+        /* ── Reveal animations ── */
+        .reveal {
+            opacity: 0; transform: translateY(40px);
+            transition: opacity .8s ease-out, transform .8s cubic-bezier(.4,0,.2,1);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── Responsive ── */
+        @media (max-width: 700px) {
+            .hero { min-height: 70vh; clip-path: polygon(0 0,100% 0,100% 92%,0 100%); }
+            .hero h1 { font-size: 2.4rem; }
+            .section-header h2 { font-size: 1.8rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            .timeline { grid-template-columns: 1fr; }
+            .region-explorer { flex-direction: column; }
+            .nav-bar button { padding: 10px 14px; font-size: 0.75rem; }
+            .banner-card { min-width: 170px; height: 110px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero">
+    <div class="hero-badge">✺ Learning Journey ✺</div>
+    <h1>
+        探索美国
+        <span class="en-line">Discover the United States</span>
+    </h1>
+    <div class="hero-tags">
+        <span>🗺️ 地理 Geography</span>
+        <span>📜 历史 History</span>
+        <span>🏛️ 政治 Government</span>
+        <span>🎶 音乐 Music</span>
+        <span>🎨 文化 Culture</span>
+    </div>
+    <div class="hero-scroll">
+        <span></span>
+    </div>
+</header>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="nav-bar" id="navBar">
+    <button onclick="scrollToSection('geography')" class="active"><span class="nav-zh">🗺️ 地理</span><span class="nav-en">Geography</span></button>
+    <button onclick="scrollToSection('history')"><span class="nav-zh">📜 历史</span><span class="nav-en">History</span></button>
+    <button onclick="scrollToSection('government')"><span class="nav-zh">🏛️ 政治</span><span class="nav-en">Government</span></button>
+    <button onclick="scrollToSection('culture')"><span class="nav-zh">🎨 文化</span><span class="nav-en">Culture</span></button>
+    <button onclick="scrollToSection('music')"><span class="nav-zh">🎶 音乐</span><span class="nav-en">Music</span></button>
+    <button onclick="scrollToSection('landmarks')"><span class="nav-zh">🏔️ 地标</span><span class="nav-en">Landmarks</span></button>
+    <button onclick="scrollToSection('quiz')"><span class="nav-zh">🧠 测验</span><span class="nav-en">Quiz</span></button>
+</nav>
+
+<!-- ═══════════ GEOGRAPHY ═══════════ -->
+<section class="section reveal" id="geography">
+    <div class="section-header">
+        <div class="section-num">01</div>
+        <h2>地理 <span class="en-sub">Geography</span></h2>
+    </div>
+    <p class="section-intro">
+        美国横跨 980 万平方公里，从北极冻原到热带岛屿。<br>
+        <span class="zh">3.8 million square miles across diverse landscapes — Arctic tundra to tropical islands.</span>
+    </p>
+
+    <div class="card-grid">
+        <div class="card"><span class="emoji">🌎</span><h3>世界第三大国 <span class="zh">Third-Largest Country</span></h3><p>面积和人口仅次于俄罗斯和中国，人口超 3.35 亿。<span class="zh">Home to over 335 million people, third-largest by area and population.</span></p></div>
+        <div class="card"><span class="emoji">🏔️</span><h3>主要山脉 <span class="zh">Major Mountain Ranges</span></h3><p>落基山脉绵延 4,800+ 公里。阿拉斯加的德纳利山是北美最高峰（6,190m）。<span class="zh">The Rockies stretch 3,000+ miles. Denali is North America's highest peak.</span></p></div>
+        <div class="card"><span class="emoji">🌊</span><h3>两大洋与五大湖 <span class="zh">Two Coasts & Great Lakes</span></h3><p>毗邻大西洋和太平洋。五大湖拥有全球 21% 的地表淡水。<span class="zh">Bordered by two oceans. The Great Lakes hold 21% of the world's fresh surface water.</span></p></div>
+        <div class="card"><span class="emoji">🏜️</span><h3>四个时区 <span class="zh">Four Time Zones</span></h3><p>大陆横跨四个时区，加上阿拉斯加和夏威夷共六个时区。<span class="zh">Eastern, Central, Mountain, Pacific — plus Alaska & Hawaii.</span></p></div>
+        <div class="card"><span class="emoji">🌪️</span><h3>极端气候 <span class="zh">Climate Extremes</span></h3><p>从死亡谷（56.7°C）到阿拉斯加（−62.2°C），涵盖几乎所有气候类型。<span class="zh">From Death Valley (134°F) to Alaska's frozen interior (−80°F).</span></p></div>
+        <div class="card"><span class="emoji">🗽</span><h3>50 州 + 领地 <span class="zh">50 States + Territories</span></h3><p>50 个州、一个联邦特区和 14 个海外领地。<span class="zh">50 states, one federal district, and 14 territories.</span></p></div>
+    </div>
+
+    <!-- Region Explorer with Map -->
+    <div class="region-explorer" style="margin-top:36px;">
+        <div class="region-map-svg">
+            <svg viewBox="0 0 600 380" xmlns="http://www.w3.org/2000/svg">
+                <rect width="600" height="380" fill="#fef9f0" rx="4"/>
+                <text x="300" y="16" text-anchor="middle" fill="#999" font-size="10" font-weight="600" letter-spacing="1">🇺🇸 UNITED STATES REGIONS</text>
+                <text x="300" y="36" text-anchor="middle" fill="#bbb" font-size="9">Click a region to explore</text>
+
+                <!-- Pacific Coast -->
+                <rect x="48" y="90" width="44" height="170" rx="3" fill="#3b82f6" opacity=".35" class="map-region" data-region="pacific"/>
+                <text x="70" y="180" text-anchor="middle" fill="#1e3a5f" font-size="8" font-weight="700" pointer-events="none">PACIFIC</text>
+
+                <!-- West -->
+                <rect x="96" y="70" width="58" height="135" rx="3" fill="#8b5cf6" opacity=".35" class="map-region" data-region="west"/>
+                <text x="125" y="142" text-anchor="middle" fill="#4c1d95" font-size="9" font-weight="700" pointer-events="none">WEST</text>
+
+                <!-- Southwest -->
+                <rect x="108" y="200" width="68" height="82" rx="3" fill="#f59e0b" opacity=".35" class="map-region" data-region="southwest"/>
+                <text x="142" y="246" text-anchor="middle" fill="#7c2d12" font-size="9" font-weight="700" pointer-events="none">SW</text>
+
+                <!-- Midwest -->
+                <rect x="158" y="60" width="105" height="120" rx="3" fill="#10b981" opacity=".35" class="map-region" data-region="midwest"/>
+                <text x="210" y="125" text-anchor="middle" fill="#064e3b" font-size="10" font-weight="700" pointer-events="none">MIDWEST</text>
+
+                <!-- South -->
+                <rect x="195" y="185" width="118" height="110" rx="3" fill="#ec4899" opacity=".35" class="map-region" data-region="south"/>
+                <text x="254" y="245" text-anchor="middle" fill="#831843" font-size="10" font-weight="700" pointer-events="none">SOUTH</text>
+
+                <!-- Northeast -->
+                <rect x="318" y="50" width="100" height="105" rx="3" fill="#f97316" opacity=".35" class="map-region" data-region="northeast"/>
+                <text x="368" y="108" text-anchor="middle" fill="#7c2d12" font-size="10" font-weight="700" pointer-events="none">NORTHEAST</text>
+
+                <!-- Alaska inset -->
+                <rect x="430" y="28" width="52" height="48" rx="3" fill="#3b82f6" opacity=".35" class="map-region" data-region="pacific"/>
+                <text x="456" y="56" text-anchor="middle" fill="#1e3a5f" font-size="7" font-weight="700">AK</text>
+
+                <!-- Hawaii inset -->
+                <rect x="490" y="28" width="26" height="20" rx="3" fill="#3b82f6" opacity=".35" class="map-region" data-region="pacific"/>
+                <text x="503" y="42" text-anchor="middle" fill="#1e3a5f" font-size="7" font-weight="700">HI</text>
+
+                <!-- Ocean labels -->
+                <text x="25" y="190" text-anchor="middle" fill="#93c5fd" font-size="8" transform="rotate(-90,25,190)">PACIFIC</text>
+                <text x="585" y="190" text-anchor="middle" fill="#93c5fd" font-size="8" transform="rotate(90,585,190)">ATLANTIC</text>
+                <text x="335" y="345" text-anchor="middle" fill="#93c5fd" font-size="8">GULF OF MEXICO</text>
+                <text x="300" y="370" text-anchor="middle" fill="#bbb" font-size="8">MEXICO</text>
+                <text x="300" y="7" text-anchor="middle" fill="#bbb" font-size="8">CANADA</text>
+            </svg>
+        </div>
+        <div class="region-side">
+            <div class="region-buttons">
+                <div class="region-btn" data-region="northeast">🏙️ 东北部<br><small style="font-weight:300;opacity:.7;">Northeast</small></div>
+                <div class="region-btn" data-region="south">🌺 南部<br><small style="font-weight:300;opacity:.7;">South</small></div>
+                <div class="region-btn" data-region="midwest">🌽 中西部<br><small style="font-weight:300;opacity:.7;">Midwest</small></div>
+                <div class="region-btn" data-region="west">🏔️ 西部<br><small style="font-weight:300;opacity:.7;">West</small></div>
+                <div class="region-btn" data-region="southwest">🌵 西南部<br><small style="font-weight:300;opacity:.7;">Southwest</small></div>
+                <div class="region-btn" data-region="pacific">🌊 太平洋沿岸<br><small style="font-weight:300;opacity:.7;">Pacific Coast</small></div>
+            </div>
+            <div class="region-detail" id="regionDetail">
+                👆 点击地图或按钮探索美国各地区！<br><span class="zh">Click the map or buttons to explore!</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ HISTORY ═══════════ -->
+<section class="section reveal" id="history">
+    <div class="section-header">
+        <div class="section-num">02</div>
+        <h2>历史 <span class="en-sub">History</span></h2>
+    </div>
+    <p class="section-intro">
+        从原住民文明到全球超级大国。<br>
+        <span class="zh">From indigenous civilizations to a global superpower.</span>
+    </p>
+
+    <div class="timeline">
+        <div class="timeline-item"><span class="year">~15,000 BCE</span><p><strong>第一批人类抵达</strong><br>美洲原住民祖先穿越白令陆桥，遍布美洲。<br><span class="zh">Ancestors of Native Americans cross the Bering Land Bridge.</span></p></div>
+        <div class="timeline-item"><span class="year">1492</span><p><strong>哥伦布到达美洲</strong><br>克里斯托弗·哥伦布抵达美洲，开启欧洲探索与殖民时代。<br><span class="zh">Columbus reaches the Americas.</span></p></div>
+        <div class="timeline-item"><span class="year">1607</span><p><strong>詹姆斯敦建立</strong><br>英国在弗吉尼亚建立北美第一个永久定居点。<br><span class="zh">England's first permanent settlement in North America.</span></p></div>
+        <div class="timeline-item"><span class="year">1776</span><p><strong>《独立宣言》</strong><br>7 月 4 日，十三殖民地宣布独立。杰斐逊为主要起草人。<br><span class="zh">Declaration of Independence. Thomas Jefferson, primary author.</span></p></div>
+        <div class="timeline-item"><span class="year">1787</span><p><strong>美国宪法诞生</strong><br>世界上仍在使用的、最古老的成文国家宪法。<br><span class="zh">The world's oldest written national constitution still in use.</span></p></div>
+        <div class="timeline-item"><span class="year">1861–65</span><p><strong>南北战争</strong><br>终结奴隶制，维护统一。林肯颁布《解放奴隶宣言》。<br><span class="zh">Civil War ends slavery. Lincoln's Emancipation Proclamation.</span></p></div>
+        <div class="timeline-item"><span class="year">1920</span><p><strong>妇女选举权</strong><br>第十九修正案赋予妇女投票权。<br><span class="zh">19th Amendment grants women the right to vote.</span></p></div>
+        <div class="timeline-item"><span class="year">1969</span><p><strong>人类登月</strong><br>阿波罗 11 号：阿姆斯特朗和奥尔德林踏上月球。<br><span class="zh">Apollo 11 — first humans on the Moon.</span></p></div>
+        <div class="timeline-item"><span class="year">2008</span><p><strong>奥巴马当选</strong><br>美国首位非洲裔总统。<br><span class="zh">First African American president elected.</span></p></div>
+    </div>
+</section>
+
+<!-- ═══════════ GOVERNMENT ═══════════ -->
+<section class="section reveal" id="government">
+    <div class="section-header">
+        <div class="section-num">03</div>
+        <h2>政治与公民 <span class="en-sub">Government & Civics</span></h2>
+    </div>
+    <p class="section-intro">
+        联邦宪政共和国，三权分立，相互制衡。<br>
+        <span class="zh">A federal constitutional republic with checks and balances.</span>
+    </p>
+
+    <div class="card-grid">
+        <div class="card"><span class="emoji">📜</span><h3>宪法 <span class="zh">The Constitution</span></h3><p>1788 年生效。《权利法案》保障言论、宗教、新闻自由。<span class="zh">Ratified 1788. Bill of Rights protects speech, religion, press.</span></p></div>
+        <div class="card"><span class="emoji">🏛️</span><h3>立法分支 <span class="zh">Legislative</span></h3><p><strong>国会</strong>：参议院（100席，每州2席）+ 众议院（435席，按人口分配）。<span class="zh">Congress: Senate (100) + House (435).</span></p></div>
+        <div class="card"><span class="emoji">🦅</span><h3>行政分支 <span class="zh">Executive</span></h3><p><strong>总统</strong>为三军统帅，最多两届（每届四年）。<span class="zh">The President serves max two 4-year terms.</span></p></div>
+        <div class="card"><span class="emoji">⚖️</span><h3>司法分支 <span class="zh">Judicial</span></h3><p><strong>最高法院</strong>，九位大法官终身任职。<span class="zh">Supreme Court, nine justices, lifetime appointments.</span></p></div>
+        <div class="card"><span class="emoji">🗳️</span><h3>选举 <span class="zh">Elections</span></h3><p>总统经<strong>选举人团</strong>（538票）选出。大选四年一次。<span class="zh">Electoral College (538 electors). Elections every 4 years.</span></p></div>
+        <div class="card"><span class="emoji">🏴</span><h3>联邦制 <span class="zh">Federalism</span></h3><p>联邦与 50 州分权。各州管教育、警务；联邦管国防、外交。<span class="zh">Power shared between federal & state governments.</span></p></div>
+    </div>
+
+    <div class="fact-box">
+        💡 <strong>你知道吗？</strong> 国旗 50 颗星 = 50 州，13 条纹 = 13 原始殖民地。1960 年启用。<br>
+        <span class="zh">50 stars = 50 states, 13 stripes = 13 original colonies. Current design: 1960.</span>
+    </div>
+</section>
+
+<!-- ═══════════ CULTURE ═══════════ -->
+<section class="section reveal" id="culture">
+    <div class="section-header">
+        <div class="section-num">04</div>
+        <h2>文化与多元 <span class="en-sub">Culture & Diversity</span></h2>
+    </div>
+    <p class="section-intro">
+        "大熔炉"——由全球移民共同塑造。<br>
+        <span class="zh">A "melting pot" shaped by immigrants from every corner of the globe.</span>
+    </p>
+
+    <div class="card-grid">
+        <div class="card"><span class="emoji">🍔</span><h3>美食 <span class="zh">Food</span></h3><p>南方烧烤、新英格兰蛤蜊浓汤、德州墨西哥菜、芝加哥深盘披萨。<span class="zh">Southern BBQ, New England chowder, Tex-Mex, deep-dish pizza.</span></p></div>
+        <div class="card"><span class="emoji">🏈</span><h3>体育 <span class="zh">Sports</span></h3><p>NFL、NBA、MLB、NHL。超级碗是年度收视冠军。<span class="zh">NFL, NBA, MLB, NHL. The Super Bowl dominates TV.</span></p></div>
+        <div class="card"><span class="emoji">🎬</span><h3>好莱坞 <span class="zh">Hollywood</span></h3><p>全球电影工业中心。奥斯卡是最负盛名的电影奖项。<span class="zh">Global film industry center. The Oscars.</span></p></div>
+        <div class="card"><span class="emoji">🌍</span><h3>移民 <span class="zh">Immigration</span></h3><p>近 14% 人口在外国出生。多元浪潮不断重塑美国身份。<span class="zh">~14% foreign-born. Waves from Europe, Asia, Latin America, Africa.</span></p></div>
+        <div class="card"><span class="emoji">🎉</span><h3>节日 <span class="zh">Holidays</span></h3><p>独立日（7/4）、感恩节、马丁·路德·金日、新奥尔良狂欢节。<span class="zh">July 4th, Thanksgiving, MLK Day, Mardi Gras.</span></p></div>
+    </div>
+</section>
+
+<!-- ═══════════ MUSIC ═══════════ -->
+<section class="section reveal" id="music">
+    <div class="section-header">
+        <div class="section-num">05</div>
+        <h2>美国音乐 <span class="en-sub">American Music</span></h2>
+    </div>
+    <p class="section-intro">
+        当代流行音乐的故乡——爵士、蓝调、摇滚、嘻哈，每一种都改变了世界。<br>
+        <span class="zh">Birthplace of modern music — jazz, blues, rock, hip-hop. Each changed the world.</span>
+    </p>
+
+    <div class="card-grid">
+        <div class="card"><span class="emoji">🎷</span><h3>爵士乐 <span class="zh">Jazz</span></h3><p>诞生于 20 世纪初新奥尔良。阿姆斯特朗、艾灵顿、戴维斯。<span class="zh">Born in New Orleans. Armstrong, Ellington, Miles Davis.</span></p></div>
+        <div class="card"><span class="emoji">🎸</span><h3>蓝调 <span class="zh">Blues</span></h3><p>起源于密西西比三角洲。摇滚和 R&B 的根基。B.B. King。<span class="zh">Mississippi Delta. The root of rock & R&B. B.B. King.</span></p></div>
+        <div class="card"><span class="emoji">🎤</span><h3>摇滚乐 <span class="zh">Rock 'n' Roll</span></h3><p>1950 年代融合蓝调与乡村。猫王是"摇滚之王"。<span class="zh">1950s fusion. Elvis Presley is the King.</span></p></div>
+        <div class="card"><span class="emoji">🤠</span><h3>乡村音乐 <span class="zh">Country</span></h3><p>田纳西纳什维尔——"音乐之城"。约翰尼·卡什、多莉·帕顿。<span class="zh">Nashville, "Music City." Johnny Cash, Dolly Parton.</span></p></div>
+        <div class="card"><span class="emoji">🎧</span><h3>嘻哈 <span class="zh">Hip-Hop</span></h3><p>1970 年代诞生于纽约布朗克斯。Jay-Z、肯德里克·拉马尔。<span class="zh">Born in the Bronx, 1970s. Jay-Z, Kendrick Lamar.</span></p></div>
+        <div class="card"><span class="emoji">🕺</span><h3>摩城 <span class="zh">Motown</span></h3><p>底特律，1960 年代。史蒂维·旺德、马文·盖伊、戴安娜·罗斯。<span class="zh">Detroit 1960s. Stevie Wonder, Marvin Gaye, Diana Ross.</span></p></div>
+        <div class="card"><span class="emoji">🌟</span><h3>流行巨星 <span class="zh">Pop Icons</span></h3><p>MJ《Thriller》史上最畅销专辑。麦当娜、碧昂丝。<span class="zh">MJ's Thriller — best-selling album ever. Madonna, Beyoncé.</span></p></div>
+        <div class="card"><span class="emoji">🎪</span><h3>音乐节 <span class="zh">Festivals</span></h3><p>伍德斯托克(1969)、科切拉、Lollapalooza。红石剧场。<span class="zh">Woodstock '69, Coachella, Lollapalooza, Red Rocks.</span></p></div>
+    </div>
+
+    <!-- Music Timeline -->
+    <div class="timeline" style="margin-top:28px;">
+        <div class="timeline-item"><span class="year">1890s–1910s</span><p><strong>拉格泰姆与早期爵士</strong><br>乔普林风靡全国。新奥尔良成为爵士熔炉。<br><span class="zh">Ragtime & Early Jazz — Scott Joplin, New Orleans.</span></p></div>
+        <div class="timeline-item"><span class="year">1920s–30s</span><p><strong>爵士时代与摇摆乐</strong><br>哈莱姆文艺复兴。艾灵顿公爵、比莉·哈乐黛。<br><span class="zh">Jazz Age & Swing — Harlem Renaissance, Duke Ellington.</span></p></div>
+        <div class="timeline-item"><span class="year">1940s–50s</span><p><strong>蓝调与摇滚诞生</strong><br>芝加哥蓝调。摇滚在孟菲斯太阳唱片诞生。<br><span class="zh">Blues & Birth of Rock — Sun Records, Memphis.</span></p></div>
+        <div class="timeline-item"><span class="year">1960s</span><p><strong>摩城与伍德斯托克</strong><br>摩城之声称霸。伍德斯托克(1969)定义一代人。<br><span class="zh">Motown & Woodstock — defined a generation.</span></p></div>
+        <div class="timeline-item"><span class="year">1970s–80s</span><p><strong>朋克与嘻哈崛起</strong><br>CBGB 朋克爆发。嘻哈通过《Rapper's Delight》进入主流。<br><span class="zh">Punk at CBGB. Hip-hop goes mainstream.</span></p></div>
+        <div class="timeline-item"><span class="year">1990s–至今</span><p><strong>垃圾摇滚与流媒体</strong><br>涅槃乐队。嘻哈成为最畅销类型。流媒体覆盖全球。<br><span class="zh">Nirvana, grunge. Hip-hop dominates. Streaming era.</span></p></div>
+    </div>
+
+    <div class="fact-box">
+        💡 MJ《Thriller》(1982) 史上最畅销专辑，全球销量超 7,000 万张。MV 彻底改变了 MTV。<br>
+        <span class="zh">Thriller (1982) — 70M+ copies. Revolutionized MTV and the music industry.</span>
+    </div>
+</section>
+
+<!-- ═══════════ LANDMARKS ═══════════ -->
+<section class="section reveal" id="landmarks">
+    <div class="section-header">
+        <div class="section-num">06</div>
+        <h2>著名地标 <span class="en-sub">Famous Landmarks</span></h2>
+    </div>
+    <p class="section-intro">
+        自然奇观与人类创造的奇迹。<br>
+        <span class="zh">Natural wonders and human-made marvels.</span>
+    </p>
+
+    <!-- Landmark banner strip -->
+    <div class="banner-strip">
+        <div class="banner-card bc-1"><div class="banner-emoji">🗽</div><span>Statue of Liberty<small>New York, NY</small></span></div>
+        <div class="banner-card bc-2"><div class="banner-emoji">🏜️</div><span>Grand Canyon<small>Arizona</small></span></div>
+        <div class="banner-card bc-3"><div class="banner-emoji">🌉</div><span>Golden Gate<small>San Francisco, CA</small></span></div>
+        <div class="banner-card bc-4"><div class="banner-emoji">🏞️</div><span>Yellowstone<small>Wyoming</small></span></div>
+        <div class="banner-card bc-5"><div class="banner-emoji">🏛️</div><span>White House<small>Washington, D.C.</small></span></div>
+        <div class="banner-card bc-6"><div class="banner-emoji">🗿</div><span>Mt Rushmore<small>South Dakota</small></span></div>
+    </div>
+
+    <div class="card-grid">
+        <div class="card"><span class="emoji">🗽</span><h3>自由女神像 <span class="zh">Statue of Liberty</span></h3><p>1886 年法国赠送，矗立纽约港 93 米。自由与民主的普世象征。<span class="zh">A gift from France, 1886. Standing 305 ft in New York Harbor.</span></p></div>
+        <div class="card"><span class="emoji">🏛️</span><h3>白宫 <span class="zh">The White House</span></h3><p>宾夕法尼亚大道 1600 号——自亚当斯以来每位总统的住所。<span class="zh">1600 Pennsylvania Ave — home of every president since John Adams.</span></p></div>
+        <div class="card"><span class="emoji">🌉</span><h3>金门大桥 <span class="zh">Golden Gate Bridge</span></h3><p>1937 年通车。"国际橙"色使其成为被拍摄最多的大桥。<span class="zh">Opened 1937. "International Orange" — world's most photographed bridge.</span></p></div>
+        <div class="card"><span class="emoji">🏜️</span><h3>大峡谷 <span class="zh">Grand Canyon</span></h3><p>科罗拉多河 500 万年雕刻的奇迹。世界七大奇观之一。<span class="zh">Carved by the Colorado River over 5–6 million years.</span></p></div>
+        <div class="card"><span class="emoji">🗿</span><h3>拉什莫尔山 <span class="zh">Mount Rushmore</span></h3><p>四位总统 18 米高头像雕刻于花岗岩之上。<span class="zh">60-ft faces of Washington, Jefferson, Roosevelt & Lincoln.</span></p></div>
+        <div class="card"><span class="emoji">🏞️</span><h3>黄石公园 <span class="zh">Yellowstone</span></h3><p>世界首个国家公园（1872），老忠实泉和丰富野生动物。<span class="zh">First national park (1872). Old Faithful & diverse wildlife.</span></p></div>
+    </div>
+</section>
+
+<!-- ═══════════ QUIZ ═══════════ -->
+<section class="section reveal" id="quiz">
+    <div class="section-header">
+        <div class="section-num">07</div>
+        <h2>测验 <span class="en-sub">Test Your Knowledge</span></h2>
+    </div>
+    <p class="section-intro">看看你学到了多少。<br><span class="zh">See how much you've learned.</span></p>
+
+    <div class="quiz-card" id="quizContainer">
+        <div class="question" id="quizQuestion"></div>
+        <div id="quizOptions"></div>
+        <div class="feedback" id="quizFeedback"></div>
+        <div style="margin-top:18px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+            <span id="quizScore" style="font-weight:700; color:var(--navy);"></span>
+            <button class="btn-primary" id="quizNext" style="display:none;">下一题 <span style="opacity:.6;font-weight:300;">Next</span></button>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ FUN FACTS ═══════════ -->
+<section class="section reveal" style="margin-bottom:60px;">
+    <div class="fact-box" id="randomFactBox">
+        <p id="randomFact" style="font-family:'DM Serif Display',Georgia,serif;font-size:1.15rem;">点击按钮发现趣味知识！<br><span class="zh">Click to discover a fun fact!</span></p>
+        <button onclick="showRandomFact()">🎲 给我一个趣味知识！ <span style="font-weight:300;opacity:.7;">Fun Fact</span></button>
+    </div>
+</section>
+
+<footer>
+    <p>🇺🇸 美国学习之旅 — 为好奇心设计<br><span style="opacity:.6;font-size:.85em;">United States Learning Journey · Designed for curious minds</span></p>
+    <p style="margin-top:8px;font-size:.78rem;">National Park Service · Library of Congress · U.S. Census Bureau</p>
+</footer>
+
+<script>
+// ── Smooth scroll ──
+function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    document.querySelectorAll('.nav-bar button').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+}
+
+// ── Scroll reveal ──
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Highlight nav on scroll
+window.addEventListener('scroll', () => {
+    const ids = ['geography','history','government','culture','music','landmarks','quiz'];
+    let current = ids[0];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 180) current = id;
+    });
+    document.querySelectorAll('.nav-bar button').forEach(b => {
+        b.classList.remove('active');
+        const t = b.textContent.toLowerCase();
+        const m = current === 'geography' ? (t.includes('地理')||t.includes('geography')) :
+                  current === 'history' ? (t.includes('历史')||t.includes('history')) :
+                  current === 'government' ? (t.includes('政治')||t.includes('government')) :
+                  current === 'culture' ? (t.includes('文化')||t.includes('culture')) :
+                  current === 'music' ? (t.includes('音乐')||t.includes('music')) :
+                  current === 'landmarks' ? (t.includes('地标')||t.includes('landmarks')) :
+                  (t.includes('测验')||t.includes('quiz'));
+        if (m) b.classList.add('active');
+    });
+});
+
+// ── Region Explorer ──
+const regionData = {
+    northeast: { title:'🏙️ 东北部 / Northeast', text:'缅因、新罕布什尔、佛蒙特、马萨诸塞、罗得岛、康涅狄格、纽约、新泽西、宾夕法尼亚。秋叶、常春藤、纽约和波士顿。<br><span class="zh">Maine through Pennsylvania. Autumn foliage, Ivy League, NYC & Boston.</span>' },
+    south: { title:'🌺 南部 / South', text:'德州、佛州、佐治亚、卡罗来纳、弗吉尼亚、阿拉巴马、密西西比、路易斯安那、田纳西、肯塔基、阿肯色。热情好客、烧烤与乡村音乐。<br><span class="zh">Texas to the Carolinas. BBQ, country music, Southern hospitality.</span>' },
+    midwest: { title:'🌽 中西部 / Midwest', text:'伊利诺伊、印第安纳、俄亥俄、密歇根、威斯康星、明尼苏达、爱荷华、密苏里等。"美国心脏地带"，广阔农田与五大湖。<br><span class="zh">America\'s Heartland — vast farmland, Great Lakes, Chicago skyline.</span>' },
+    west: { title:'🏔️ 西部 / West', text:'科罗拉多、怀俄明、蒙大拿、爱达荷、犹他。落基山脉、世界级滑雪场、黄石和边疆精神。<br><span class="zh">Rocky Mountains, world-class skiing, Yellowstone, frontier spirit.</span>' },
+    southwest: { title:'🌵 西南部 / Southwest', text:'亚利桑那、新墨西哥、内华达等。沙漠景观、原住民遗产、大峡谷和拉斯维加斯。<br><span class="zh">Desert landscapes, Native heritage, Grand Canyon, Las Vegas.</span>' },
+    pacific: { title:'🌊 太平洋沿岸 / Pacific Coast', text:'加州、俄勒冈、华盛顿、阿拉斯加、夏威夷。硅谷、好莱坞、壮丽海岸线和最高山峰。<br><span class="zh">Silicon Valley, Hollywood, stunning coastlines, tallest peaks.</span>' }
+};
+
+function selectRegion(region) {
+    document.querySelectorAll('.region-btn, .map-region').forEach(t => {
+        t.classList.remove('selected', 'selected-region');
+    });
+    document.querySelectorAll(`.region-btn[data-region="${region}"], .map-region[data-region="${region}"]`).forEach(t => {
+        t.classList.add(t.classList.contains('map-region') ? 'selected-region' : 'selected');
+    });
+    const r = regionData[region];
+    document.getElementById('regionDetail').innerHTML = `<strong>${r.title}</strong><br>${r.text}`;
+}
+
+document.querySelectorAll('.region-btn').forEach(btn => {
+    btn.addEventListener('click', function() { selectRegion(this.dataset.region); });
+});
+document.querySelectorAll('.map-region').forEach(region => {
+    region.addEventListener('click', function() { selectRegion(this.dataset.region); });
+});
+
+// ── Random Facts ──
+const funFacts = [
+    '🇺🇸 国会图书馆是世界上最大的图书馆，拥有超 1.73 亿藏品。<br><span class="zh">Library of Congress — largest in the world, 173M+ items.</span>',
+    '🦅 秃鹰 1782 年被选为国鸟。富兰克林更偏爱火鸡！<br><span class="zh">Bald eagle chosen 1782. Franklin preferred the turkey!</span>',
+    '🗽 自由女神像从法国分 350 块运来，历时 4 个月组装。<br><span class="zh">Shipped in 350 pieces from France, assembled over 4 months.</span>',
+    '🌉 金门大桥缆绳含 80,000 英里钢丝，可绕地球 3 圈。<br><span class="zh">80,000 miles of wire in cables — enough to circle Earth 3x.</span>',
+    '🏔️ 阿拉斯加是美国最大州——德州可装进去两次！<br><span class="zh">Alaska is the largest — fits Texas twice!</span>',
+    '🍕 美国人每年吃掉约 30 亿个披萨。<br><span class="zh">Americans eat ~3 billion pizzas annually.</span>',
+    '🎵 爵士乐 20 世纪初起源于新奥尔良，融合非洲与欧洲传统。<br><span class="zh">Jazz born in New Orleans, blending African & European traditions.</span>',
+    '🌲 加州"谢尔曼将军"红杉——世界体积最大的树。<br><span class="zh">General Sherman sequoia — largest tree by volume on Earth.</span>',
+    '🚀 美国是唯一将人类送上月球的国家（1969–72，六次登月）。<br><span class="zh">Only nation to land humans on the Moon (6 landings, 1969–72).</span>',
+    '🌪️ 美国龙卷风比任何国家都多——年均超 1,200 次。<br><span class="zh">More tornadoes than anywhere — 1,200+ per year.</span>'
+];
+function showRandomFact() {
+    const facts = funFacts, cur = document.getElementById('randomFact').innerHTML;
+    let i; do { i = Math.floor(Math.random()*facts.length); } while (facts[i]===cur&&facts.length>1);
+    document.getElementById('randomFact').innerHTML = facts[i];
+}
+
+// ── Quiz ──
+const quizData = [
+    { q:'美国有多少州？<br><span class="zh">How many states?</span>', o:['48','50','52','51'], a:1 },
+    { q:'美国哪年宣布独立？<br><span class="zh">Year of independence?</span>', o:['1774','1776','1781','1789'], a:1 },
+    { q:'最大州是哪个？<br><span class="zh">Largest state?</span>', o:['Texas','California','Alaska','Montana'], a:2 },
+    { q:'联邦政府有几个分支？<br><span class="zh">Branches of government?</span>', o:['2','3','4','5'], a:1 },
+    { q:'北美最高峰？<br><span class="zh">Highest peak in N. America?</span>', o:['Mt Whitney','Mt Rainier','Pikes Peak','Denali'], a:3 },
+    { q:'哪条修正案赋予妇女投票权？<br><span class="zh">Women\'s suffrage amendment?</span>', o:['15th','18th','19th','21st'], a:2 },
+    { q:'第一个国家公园？<br><span class="zh">First national park?</span>', o:['Yosemite','Grand Canyon','Yellowstone','Zion'], a:2 },
+    { q:'最高法院几位大法官？<br><span class="zh">Supreme Court justices?</span>', o:['7','9','11','13'], a:1 }
+];
+let qi=0,sc=0,an=false;
+function loadQuiz() {
+    an=false; const q=quizData[qi];
+    document.getElementById('quizQuestion').innerHTML=`Q${qi+1}: ${q.q}`;
+    document.getElementById('quizFeedback').textContent='';
+    document.getElementById('quizNext').style.display='none';
+    document.getElementById('quizScore').textContent=qi>0?`Score: ${sc}/${qi}`:'';
+    const od=document.getElementById('quizOptions'); od.innerHTML='';
+    q.o.forEach((o,i)=>{const b=document.createElement('button');b.className='option';b.textContent=o;b.onclick=()=>check(i,b);od.appendChild(b);});
+}
+function check(ch,btn){
+    if(an)return; an=true; const q=quizData[qi],ok=ch===q.a;
+    if(ok){sc++;btn.classList.add('correct');}
+    else{btn.classList.add('wrong');document.querySelectorAll('#quizOptions .option')[q.a].classList.add('correct');}
+    document.getElementById('quizFeedback').innerHTML=ok?'✅ 正确！ / <span style="font-weight:400;">Correct!</span>':'❌ 不对 — 正确答案已标出 / <span style="font-weight:400;">Answer highlighted</span>';
+    document.getElementById('quizFeedback').style.color=ok?'#2e7d32':'#c62828';
+    document.getElementById('quizScore').textContent=`Score: ${sc}/${qi+1}`;
+    if(qi<quizData.length-1){document.getElementById('quizNext').style.display='inline-block';document.getElementById('quizNext').innerHTML='下一题 <span style="opacity:.6;font-weight:300;">Next</span>';document.getElementById('quizNext').onclick=()=>{qi++;loadQuiz();};}
+    else{document.getElementById('quizNext').style.display='inline-block';document.getElementById('quizNext').innerHTML='🎉 查看结果 <span style="opacity:.6;font-weight:300;">Result</span>';document.getElementById('quizNext').onclick=()=>{
+        const p=Math.round(sc/quizData.length*100),em=p===100?'🏆':p>=70?'🌟':p>=50?'📚':'💪';
+        const mz=p===100?'满分！美国通！':p>=70?'很棒！':p>=50?'不错！继续加油！':'继续探索吧！';
+        const me=p===100?'Perfect!':p>=70?'Great job!':p>=50?'Good effort!':'Keep exploring!';
+        document.getElementById('quizContainer').innerHTML=`<div style="text-align:center;padding:30px;"><div style="font-size:4rem;">${em}</div><h2 style="color:var(--navy);margin:16px 0 8px;font-family:'DM Serif Display',serif;">${sc}/${quizData.length} (${p}%)</h2><p style="color:#666;margin-bottom:20px;">${mz}<br><span class="zh">${me}</span></p><button onclick="qi=0;sc=0;document.getElementById('quizContainer').innerHTML='<div class=\\'question\\' id=\\'quizQuestion\\'></div><div id=\\'quizOptions\\'></div><div class=\\'feedback\\' id=\\'quizFeedback\\'></div><div style=\\'margin-top:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;\\'><span id=\\'quizScore\\' style=\\'font-weight:700;color:var(--navy);\\'></span><button class=\\'btn-primary\\' id=\\'quizNext\\' style=\\'display:none;\\'>下一题 <span style=\\'opacity:.6;font-weight:300;\\'>Next</span></button></div>';loadQuiz();" class="btn-primary">🔄 重新测验 Retake</button></div>`;};}}
+loadQuiz();
+</script>
+</body>
+</html>
